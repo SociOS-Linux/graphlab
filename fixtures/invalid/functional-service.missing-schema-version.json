@@ -1,0 +1,53 @@
+{
+  "service": {
+    "id": "graphlab.holmes.graph-pilot",
+    "name": "GraphLab Holmes Graph Pilot",
+    "ownerRepository": "SociOS-Linux/graphlab",
+    "status": "experimental",
+    "description": "Offline deterministic graph functional surface emitted by graphlab for governed promotion."
+  },
+  "function": "graph",
+  "model": {
+    "modelRef": "urn:socioprophet:functional-model:graphlab:deterministic-graph:v0",
+    "adapterRefs": [],
+    "runtime": "python-stdlib-offline-smoke",
+    "mutableStatePolicy": "forbidden-in-sourceos"
+  },
+  "inputs": [
+    "graph/query",
+    "graph/corpus"
+  ],
+  "outputs": [
+    "graph/features",
+    "ranking/candidates",
+    "evidence/smoke-receipt"
+  ],
+  "evals": {
+    "required": true,
+    "references": [
+      "examples/smoke-input.json",
+      "examples/smoke-output.json",
+      "evidence/smoke-receipt.example.json"
+    ],
+    "minimumPromotionGate": "candidate requires signed eval and dataset provenance"
+  },
+  "governance": {
+    "ledgerRequired": true,
+    "guardrailRequired": true,
+    "routingRequired": true,
+    "policyRefs": [
+      "SocioProphet/model-governance-ledger",
+      "SocioProphet/guardrail-fabric",
+      "SocioProphet/model-router",
+      "SocioProphet/holmes"
+    ]
+  },
+  "sourceosCarry": {
+    "allowed": true,
+    "carriesMutableModelState": false,
+    "clientRefRequired": true,
+    "launchProfileRefs": [
+      "urn:srcos:model-carry:functional-service:graphlab-holmes-pilot"
+    ]
+  }
+}
